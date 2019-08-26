@@ -29,9 +29,12 @@ import java.time.Instant;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Spy;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -43,16 +46,15 @@ import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 
-@RunWith(MockitoJUnitRunner.class)
 public class LineBotCallbackRequestParserTest {
+    @Rule
+    public final MockitoRule mockitoRule = MockitoJUnit.rule();
+
     @Spy
     private LineSignatureValidator lineSignatureValidator = new LineSignatureValidator(
             "SECRET".getBytes(StandardCharsets.UTF_8));
 
     private LineBotCallbackRequestParser lineBotCallbackRequestParser;
-
-    public LineBotCallbackRequestParserTest() throws InvalidKeyException, NoSuchAlgorithmException {
-    }
 
     @Before
     public void before() throws IOException {
